@@ -46,6 +46,7 @@ def unblock(ifaces):
 
 def execute(cmd):
     try:
+        print('Looking for anomalies...')
         popen = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         for line in popen.stdout: 
             line = line.decode().strip()
@@ -76,6 +77,7 @@ def execute(cmd):
             print(popen.stderr.read().decode(), file=sys.stderr)
             raise subprocess.CalledProcessError(return_code, cmd)
     except KeyboardInterrupt:
+        print('\nExiting...')
         unblock(interfaces)
 
 
