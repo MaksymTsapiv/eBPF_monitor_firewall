@@ -23,7 +23,7 @@ ips_to_ban = []
 def block(interfaces, address):
     os.chdir(os.path.join(project_dir, "Heimdallr-project"))
     for interface in interfaces:
-        subprocess.call(["sudo python3", "hmdl.py", "-s", interface])
+        subprocess.call(["sudo", "python3", "hmdl.py", "-s", interface])
         subprocess.call(["sudo", "python3", "hmdl.py", "-A"])
         subprocess.call(["sudo", "python3", "hmdl.py", "-d", address])
     os.chdir(os.path.join(project_dir, "monitorBX"))
