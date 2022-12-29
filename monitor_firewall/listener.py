@@ -16,7 +16,7 @@ for elm in interfaces:
 
 not_bannable_ip = ["0.0.0.0", "127.0.0.1", "127.0.0", "192.168", "10.0.1.1", "10.10.1.1"]
 
-cmd = [f"{os.path.join(project_dir, 'monitorBX', 'monitorBX')} {' '.join(str(i) for i in interfaces)}"]
+cmd = [f"sudo {os.path.join(project_dir, 'monitorBX', 'monitorBX')} {' '.join(str(i) for i in interfaces)}"]
 
 
 ips_to_ban = []

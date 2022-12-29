@@ -1,25 +1,33 @@
 # monitor-firewall
 
+## Prerequisites
+
+- glibc
+- virtualenv (install it via pip)
+- libbpf (version 0.5)
+
 ## Compilation
 
 Run the following commands in the `monitor_firewall` directory:
 
-1. Compile monitorBX
+1. Compile monitorBX:
 ```bash
 $ cd monitorBX
 $ sudo make
 $ cd ..
 ```
 
-2. Setup env
+2. Setup virtual environment:
 ```
-...
+$ virtualenv .venv
+$ source .venv/bin/activate
+$ pip install -r requirements.txt
 ```
 
 
 ## Usage
 
-Run the following in the `monitorBX` directory:
+Run the following in the `monitor_firewall` directory:
 ```
-$ sudo python3 listener.py
+$ python3 listener.py
 ```
