@@ -18,7 +18,7 @@ $ git submodule update --init --recursive
 ```bash
 $ cd ../external/libbpf-0.8.0/src
 $ BUILD_STATIC_ONLY=y make
-$ cd ../../../xdp_example
+$ cd ../../../monitor_firewall
 ```
 
 3. Compile monitorBX:
@@ -31,6 +31,7 @@ $ cd ..
 4. Setup virtual environment:
 ```
 $ cd Heimdallr-project
+$ sudo make
 $ virtualenv .venv
 $ source .venv/bin/activate
 $ pip install -r requirements.txt
