@@ -4,6 +4,11 @@
 
 - glibc
 - virtualenv (install it via pip)
+- install the following packages:
+```bash
+$ sudo apt-get install -y make gcc libssl-dev bc libelf-dev libcap-dev clang gcc-multilib llvm libncurses5-dev git pkg-config libmnl-dev bison flex graphviz
+$ sudo apt-get install -y libbpf-dev
+```
 
 ## Compilation
 
