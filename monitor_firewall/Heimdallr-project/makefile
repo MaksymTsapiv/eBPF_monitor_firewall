@@ -8,9 +8,10 @@ XDP_NAME = bpf_program
 LDR_NAME = launcher
 MAP_NAME = map_util
 
-I_PATH = -I/usr/include/bpf -Iinc -I/usr/include/x86_64-linux-gnu
-L_PATH = -L/usr/lib64
-U_LIBS = -lbpf -lelf
+# I_PATH = -I/usr/include/bpf -Iinc -I/usr/include/x86_64-linux-gnu
+I_PATH = -Iinc -I../../external/libbpf-0.8.0/src
+L_PATH = -L../../external/libbpf-0.8.0/src -L/usr/lib64
+U_LIBS = -lbpf -lelf -lz
 
 XDP = $(PRG_DIR)/$(XDP_NAME).o
 LDR = $(PRG_DIR)/$(LDR_NAME)
