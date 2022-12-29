@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>monitorBX</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
+
+<div class="header">
+    <h1 class="logo decorate">monitorBX</h1>
+    <h1 class="logo over">monitorBX</h1>
+</div>
+
+<div class="row">
+    <div class="chart_columns">
+        <canvas id="speed_canvas"></canvas>
+        <canvas id="packets_canvas"></canvas>
+    </div>
+
+    <div class="chart_columns">
+        <canvas id="protocols_canvas"></canvas>
+        <canvas id="unique_canvas"></canvas>
+    </div>
+
+    <aside class="panel">
+        <div class="general_stats panel_stats">
+            <h5>Whole time</h5>
+            <table style="width:100%">
+              <tr>
+                <td>Passed packets:</td>
+                <td><b>0</b></td>
+              </tr>
+              <tr>
+                <td>Dropped packets:</td>
+                <td><b>0</b></td>
+              </tr>
+              <tr>
+                <td>Average transfer rate (bytes/s):</td>
+                <td><b>0</b></td>
+              </tr>
+            </table>
+        </div>
+
+        <div class="last_day panel_stats">
+            <h5>Last day</h5>
+            <table style="width:100%">
+              <tr>
+                <td>Passed packets:</td>
+                <td><b>0</b></td>
+              </tr>
+              <tr>
+                <td>Dropped packets:</td>
+                <td><b>0</b></td>
+              </tr>
+              <tr>
+                <td>Average transfer rate (bytes/s):</td>
+                <td><b>0</b></td>
+              </tr>
+            </table>
+        </div>
+
+        <div id="logs">
+            <h5>Logs</h5>
+            <div class="log">
+            </div>
+        </div>
+    </aside>
+</div>
+
+<!--suppress JSUnresolvedLibraryURL -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<!--suppress JSUnresolvedLibraryURL -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<!--suppress JSUnresolvedLibraryURL -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+
+<script src="{{ url_for('static', filename='js/index.js') }}"></script>
+<script src="{{ url_for('static', filename='js/chart_configs.js') }}"></script>
+
+</body>
+</html>
