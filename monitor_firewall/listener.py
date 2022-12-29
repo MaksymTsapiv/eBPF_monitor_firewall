@@ -22,42 +22,61 @@ ips_to_ban = []
 
 def block(interfaces, address):
     os.chdir(os.path.join(project_dir, "Heimdallr-project"))
+    subprocess.call(["sudo", "python3", "hmdl.py", "-A"])
+    subprocess.call(["sudo", "python3", "hmdl.py", "-D"])
     for interface in interfaces:
         subprocess.call(["sudo", "python3", "hmdl.py", "-s", interface])
         subprocess.call(["sudo", "python3", "hmdl.py", "-A"])
         subprocess.call(["sudo", "python3", "hmdl.py", "-d", address])
+        subprocess.call(["sudo", "python3", "hmdl.py", "-D"])
+        subprocess.call(["sudo", "python3", "hmdl.py", "-A"])
+    os.chdir(os.path.join(project_dir, "monitorBX"))
+
+def unblock(ifaces):
+    os.chdir(os.path.join(project_dir, "Heimdallr-project"))
+    subprocess.call(["sudo", "python3", "hmdl.py", "-A"])
+    subprocess.call(["sudo", "python3", "hmdl.py", "-D"])
+    for interface in ifaces:
+        for address in ips_to_ban:
+            subprocess.call(["sudo", "python3", "hmdl.py", "-s", interface])
+            subprocess.call(["sudo", "python3", "hmdl.py", "-A"])
+            subprocess.call(["sudo", "python3", "hmdl.py", "-r", address])
+            subprocess.call(["sudo", "python3", "hmdl.py", "-D"])
     os.chdir(os.path.join(project_dir, "monitorBX"))
 
 def execute(cmd):
-    popen = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    for line in popen.stdout: 
-        line = line.decode().strip()
-        if "Anomaly ip:" in line:
-            ip = line.split(": ")[-1][:-1]
-            flag_to_ban = True
-            for no_ban in not_bannable_ip:
-                if (no_ban in ip) or (ip in ips_to_ban):
-                    flag_to_ban = False
-                    break
-            
-            if flag_to_ban:
-                while True:
-                    to_ban = input(f"Do you want to ban ip {ip}? y\\n: ")
-                    if to_ban == "y":
-                        block(interfaces, ip)
+    try:
+        popen = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        for line in popen.stdout: 
+            line = line.decode().strip()
+            if "Anomaly ip:" in line:
+                ip = line.split(": ")[-1][:-1]
+                flag_to_ban = True
+                for no_ban in not_bannable_ip:
+                    if (no_ban in ip) or (ip in ips_to_ban):
+                        flag_to_ban = False
                         break
-                    elif to_ban == "n":
-                        break
-                    else:
-                        print("Wrong input, please try again")
+                
+                if flag_to_ban:
+                    while True:
+                        to_ban = input(f"Do you want to ban ip {ip}? y\\n: ")
+                        if to_ban == "y":
+                            block(interfaces, ip)
+                            break
+                        elif to_ban == "n":
+                            break
+                        else:
+                            print("Wrong input, please try again")
 
-            # if flag_to_ban and to_ban:
-            #     ips_to_ban.append(ip)
-    popen.stdout.close()
-    return_code = popen.wait()
-    if return_code:
-        print(popen.stderr.read().decode(), file=sys.stderr)
-        raise subprocess.CalledProcessError(return_code, cmd)
+                if flag_to_ban and to_ban:
+                    ips_to_ban.append(ip)
+        popen.stdout.close()
+        return_code = popen.wait()
+        if return_code:
+            print(popen.stderr.read().decode(), file=sys.stderr)
+            raise subprocess.CalledProcessError(return_code, cmd)
+    except KeyboardInterrupt:
+        unblock(interfaces)
 
 
 execute(cmd)
