@@ -10,7 +10,7 @@ os.chdir(project_dir)
 
 interfaces = [i for i in range(2, len(netifaces.interfaces()[1:]) + 2)]
 
-not_bannable_ip = ["0.0.0.0", "127.0.0.1", "127.0.0"]
+not_bannable_ip = ["0.0.0.0", "127.0.0.1", "127.0.0", "192.168", "10.0.1.1", "10.10.1.1"]
 
 cmd = ["python3 /Users/shevdan/Documents/Programming/OS/project/emulate_monitor.py"]
 
