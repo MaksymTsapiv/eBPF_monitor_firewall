@@ -2,24 +2,24 @@
 import netifaces
 import subprocess
 import os
+import sys
 
 
 project_dir = os.path.realpath(os.path.dirname(__file__))
-os.chdir(project_dir)
+os.chdir(os.path.join(project_dir, "monitorBX"))
 
 
 interfaces = [i for i in range(2, len(netifaces.interfaces()[1:]) + 2)]
 
 not_bannable_ip = ["0.0.0.0", "127.0.0.1", "127.0.0", "192.168", "10.0.1.1", "10.10.1.1"]
 
-cmd = ["python3 /Users/shevdan/Documents/Programming/OS/project/emulate_monitor.py"]
-
+cmd = [f"{os.path.join(project_dir, 'monitorBX', 'monitorBX')} {' '.join(str(i) for i in interfaces)}"]
 
 
 ips_to_ban = []
 
 def execute(cmd):
-    popen = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE)
+    popen = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     for line in popen.stdout: 
         line = line.decode().strip()
         if "Anomaly ip:" in line:
@@ -48,9 +48,10 @@ def execute(cmd):
     popen.stdout.close()
     return_code = popen.wait()
     if return_code:
+        print(popen.stderr.read(), file=sys.stderr)
         raise subprocess.CalledProcessError(return_code, cmd)
 
 
-# execute(cmd)
+execute(cmd)
 
 
