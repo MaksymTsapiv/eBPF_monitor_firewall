@@ -7,7 +7,7 @@ not_bannable_ip = ["0.0.0.0", "127.0.0.1", "127.0.0"]
 
 print(interfaces)
 
-
+import time
 
 cmd = ["python3 /Users/shevdan/Documents/Programming/OS/project/emulate_monitor.py"]
 
@@ -27,7 +27,21 @@ def execute(cmd):
                 if (no_ban in ip) or (ip in ips_to_ban):
                     flag_to_ban = False
                     break
+            
             if flag_to_ban:
+                while True:
+                    to_ban = input(f"Do you want to ban ip {ip}? y\\n: ")
+                    if to_ban == "y":
+                        to_ban = True
+                        break
+                    elif to_ban == "n":
+                        to_ban = False
+                        break
+                    else:
+                        print("Wrong input, please try again")
+
+
+            if flag_to_ban and to_ban:
                 ips_to_ban.append(ip)
     popen.stdout.close()
     return_code = popen.wait()
