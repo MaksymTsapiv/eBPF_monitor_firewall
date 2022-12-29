@@ -6,6 +6,9 @@ from os import path
 from functools import reduce
 from subprocess import check_output, PIPE
 from netifaces import interfaces
+import warnings
+warnings.filterwarnings('ignore')
+
 
 
 HEADER = ['IP', 'MASK', 'RULE', 'IFF']
@@ -206,9 +209,9 @@ class Hmdl:
         assert self.is_active(), "Error: Heimdallr is not active"
         if self.is_active():
             self.run('e')
-            print(f"Heimdallr detached from device: {self.conf['device']}")
-        else:
-            print(f"Heimdallr already detached from device: {self.conf['device']}")
+            # print(f"Heimdallr detached from device: {self.conf['device']}")
+        # else:
+            # print(f"Heimdallr already detached from device: {self.conf['device']}")
 
     def attach(self):
         self.check_invariants()
@@ -219,9 +222,9 @@ class Hmdl:
         if not self.is_active():
             check_output([launcher, iff, xdp], stderr=PIPE).decode("utf-8").strip()
             self.add_rules(rules)
-            print(f"Heimdallr attached to device: {iff}")
-        else:
-            print(f"Heimdallr already attached to device: {iff}")
+            # print(f"Heimdallr attached to device: {iff}")
+        # else:
+            # print(f"Heimdallr already attached to device: {iff}")
 
     def is_active(self):
         return path.exists(self.conf["trie"])
