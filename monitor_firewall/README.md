@@ -19,9 +19,11 @@ $ cd ..
 
 2. Setup virtual environment:
 ```
+$ cd Heimdallr-project
 $ virtualenv .venv
 $ source .venv/bin/activate
 $ pip install -r requirements.txt
+$ cd ..
 ```
 
 
