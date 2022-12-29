@@ -4,7 +4,6 @@
 
 - glibc
 - virtualenv (install it via pip)
-- libbpf (version 0.5)
 
 ## Compilation
 
