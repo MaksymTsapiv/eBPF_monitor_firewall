@@ -16,13 +16,13 @@ def send_packets(destination, sleep_seconds):
         destination_port = random.randrange(1, 1000)
         protocol_id = random.randrange(0, 4)
         if protocol_id == 0:
-            sendp(Ether()/IP(src=source_ip, dst=destination, ttl=(1, 1))/TCP(dport=destination_port,flags='S'), iface="vboxnet0")
+            sendp(Ether()/IP(src=source_ip, dst=destination, ttl=(1, 1))/TCP(dport=destination_port,flags='S'))
         elif protocol_id == 1:
-            sendp(Ether()/IP(src=source_ip, dst=destination, ttl=(1, 1))/UDP(dport=destination_port), iface="vboxnet0")
+            sendp(Ether()/IP(src=source_ip, dst=destination, ttl=(1, 1))/UDP(dport=destination_port))
         elif protocol_id == 2:
-            sendp(Ether()/IP(src=source_ip, dst=destination, ttl=(1, 1))/ICMP(), iface="vboxnet0")
+            sendp(Ether()/IP(src=source_ip, dst=destination, ttl=(1, 1))/ICMP())
         else:
-            sendp(Ether()/IP(src=source_ip, dst=destination, ttl=(1, 1)), iface="vboxnet0")
+            sendp(Ether()/IP(src=source_ip, dst=destination, ttl=(1, 1)))
 
         protocol = lambda x: "TCP" if x == 0 else "UDP" if x == 1 else "ICMP" if x == 2 else "Other"
         print("Source IP: {}\tProtocol: {}\tDestination port: {}".format(source_ip, protocol(protocol_id), destination_port))
