@@ -156,7 +156,7 @@ class Hmdl:
         duplicate = self.data.get_duplicate(ipv4.ip, self.conf["device"], ipv4.mask)
 
         if duplicate is None:
-            print(f"There is no such rule: {ipv4.ip}/{ipv4.mask}")
+            # print(f"There is no such rule: {ipv4.ip}/{ipv4.mask}")
             return
 
         ip_sr["RULE"] = duplicate
