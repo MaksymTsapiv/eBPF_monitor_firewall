@@ -159,8 +159,28 @@ int xdp_monitorbx(struct xdp_md *ctx)
     }
 
     // Trace message about received packet
-    char msg[] = "IP address is %u";
-    custom_trace_printk(msg, sizeof(msg), iph->saddr);
+    // char msg[] = "IP address is %u";
+    // custom_trace_printk(msg, sizeof(msg), iph->saddr);
+
+    char msg[] = "IP address is %s.%u.%u";
+    u32 bytes[4];
+    bytes[0] = iph->saddr & 0xFF;
+    bytes[1] = (iph->saddr >> 8) & 0xFF;
+    bytes[2] = (iph->saddr >> 16) & 0xFF;
+    bytes[3] = (iph->saddr >> 24) & 0xFF;
+    char first2bytes[8];
+    u32 next_char = 0;
+    for (u32 i = 3; i >= 1; --i) {
+        first2bytes[i-1] = '0' + (bytes[0] % 10);
+        bytes[0] /= 10;
+    }
+    first2bytes[3] = '.';
+    for (u32 i = 6; i >= 4; --i) {
+        first2bytes[i] = '0' + (bytes[1] % 10);
+        bytes[1] /= 10;
+    }
+    first2bytes[7] = '\0';
+    custom_trace_printk(msg, sizeof(msg), first2bytes, bytes[2], bytes[3]);
 
     // Increase counter for source IP
     int *result;

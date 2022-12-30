@@ -416,13 +416,14 @@ int collect_info(){
             }
             unique_ips += 1;
             sum_count_ips += value;
-            if (value > (comparisonMultiplier * (avg_count_per_ip / k_neighbors))){
+            // if (value > (comparisonMultiplier * (avg_count_per_ip / k_neighbors))){
+            if (value > 1000){
                 char buff[16];
                 unsigned char bytes[4];
-                bytes[0] = key & 0xFF;
-                bytes[1] = (key >> 8) & 0xFF;
-                bytes[2] = (key >> 16) & 0xFF;
-                bytes[3] = (key >> 24) & 0xFF;
+                bytes[0] = next_key & 0xFF;
+                bytes[1] = (next_key >> 8) & 0xFF;
+                bytes[2] = (next_key >> 16) & 0xFF;
+                bytes[3] = (next_key >> 24) & 0xFF;
                 printf("Anomaly ip: %d.%d.%d.%d.\n",  bytes[0], bytes[1], bytes[2], bytes[3]);
 //                std::string buffAsStdStr = buff;
 //
